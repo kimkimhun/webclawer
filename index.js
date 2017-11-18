@@ -12,6 +12,10 @@ const items = [
 
 const queue = async.queue ((task, callback) => {
     request (task.url, (error, response, body) => {
+        if (error) {
+            console.log('Request error')
+            callback()
+        }
         const $ = cheerio.load (body)
         const text = $('#mw-content-text p').text()
         fs.writeFile(task.name + '.txt', text, (err) => {
