@@ -13,7 +13,7 @@ const items = [
 const queue = async.queue ((task, callback) => {
     request (task.url, (error, response, body) => {
         if (error) {
-            console.log('Request error')
+            console.log(error.response)
             callback()
         }
         const $ = cheerio.load (body)
