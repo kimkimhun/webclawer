@@ -10,23 +10,23 @@ const items = [
     { name: 'valhein', url: 'http://rov.wikia.com/wiki/Valhein'}
 ]
 
-const queue = async.queue((task, callback) => {
-    request(task.url, (error, response, body) => {
-        const $ = cheerio.load(body)
+const queue = async.queue ((task, callback) => {
+    request (task.url, (error, response, body) => {
+        const $ = cheerio.load (body)
         const text = $('#mw-content-text p').text()
-        fs.writeFile(task.name +'.txt' , text, (err) => {
-            if(err){
+        fs.writeFile(task.name + '.txt', text, (err) => {
+            if (err) {
                 console.log(err)
-                callback()
+                callback ()
             }
-            console.log('save file complete')
-            callback()
+            console.log('save file complete.')
+            callback ()
         })
     })
 }, 1)
 
 queue.drain = () => {
-    console.log('Complete')
+    console.log('all process complete.')
 }
 
 queue.push(items)
